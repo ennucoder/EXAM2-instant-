@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+
+
+  <div class="app1" id="app">
+    <div>
+
+      <table id="table1">
+        <tr>
+          <th>編集</th>
+          <th></th>
+          <th>name</th>
+          <th>data</th>
+        </tr>
+        <tr id="tr1">
+          <td>
+            <button v-on:click="editData(0)">編集</button>
+          </td>
+          <td>
+            <button id="btn1" v-on:click="deletefunc($event)">削除</button>
+          </td>
+          <td>{{ name[0]}}</td>
+          <td>{{ value[0]}}</td>
+        </tr>
+        <tr id="tr2">
+          <td>
+            <button v-on:click="editData(1)">編集</button>
+          </td>
+          <td>
+            <button id="btn2" v-on:click="deletefunc($event)">削除</button>
+          </td>
+          <td>{{ name[1]}}</td>
+          <td>{{ value[1]}}</td>
+        </tr>
+        <tr id="tr3">
+          <td>
+            <button v-on:click="editData(2)">編集</button>
+          </td>
+          <td>
+            <button id="btn3" v-on:click="deletefunc($event)">削除</button>
+          </td>
+          <td>{{ name[2]}}</td>
+          <td>{{ value[2]}}</td>
+        </tr>
+        <tr id="tr4">
+          <td>
+            <button v-on:click="editData(3)">編集</button>
+          </td>
+          <td>
+            <button id="btn4" v-on:click="deletefunc($event)">削除</button>
+          </td>
+          <td>{{ name[3]}}</td>
+          <td>{{ value[3]}}</td>
+        </tr>
+        <tr id="tr5">
+          <td>
+            <button v-on:click="editData(4)">編集</button>
+          </td>
+          <td>
+            <button id="btn5" v-on:click="deletefunc($event)">削除</button>
+          </td>
+          <td>{{ name[4]}}</td>
+          <td>{{ value[4]}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="modal" v-if="number">
+      <div>name</div>
+      <textarea id="textarea1"></textarea>
+      <div>calories</div>
+      <textarea id="textarea2"></textarea>
+      <button class="modalClose" v-on:click="updatatable">編集完了</button>
+    </div>
+    <div>
+      <div class="mask" v-if="number"></div>
+    </div>
+  </div>
+
+  <script>
+    const App = {
+      el: '#app',
+      data() {
+        return {
+          number: 0,
+          tr1: 1,
+          tr2: 1,
+          tr3: 1,
+          tr4: 1,
+          tr5: 1,
+
+          name: [
+            'リンゴ',
+            'イチゴ',
+            'バナナ',
+            'キウイ',
+            'オレンジ',
+
+          ],
+          value: [
+            '1000',
+            '2300',
+            '3221',
+            '420',
+            '756',
+          ],
+          hanteichi1: '',
+          hanteichi2: '',
+        }
+      },
+      methods: {
+        editData: function (e) {
+          this.number = 1
+          console.log(e)
+          this.hanteichi1 = e
+          console.log(this.hanteichi1)
+
+        },
+        updatatable: function () {
+          this.number = 0
+          element1 = document.getElementById('textarea1')
+          element2 = document.getElementById('textarea2')
+
+          wherenumber1 = this.hanteichi1
+
+          this.name[wherenumber1] = element1.value
+          this.value[wherenumber1] = element2.value
+        },
+        deletefunc: function (event) {
+          some = event.target.id
+          someinfo = document.getElementById(some)
+
+          someinfoparent = someinfo.parentElement
+
+          someinfograndparent = someinfoparent.parentElement
+
+
+          tableinfo = someinfograndparent.id
+          element = document.getElementById(tableinfo)
+
+          elementrownumber = element.rowIndex
+
+
+          table1info = document.getElementById('table1')
+          table1info.deleteRow(elementrownumber)
+        }
+
+      }
+    }
+    app1 = Vue.createApp(App)
+    app1.mount('#app')
+
+  </script>
+
+
+</body>
+
+</html>
